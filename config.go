@@ -29,6 +29,14 @@ func (c *Configuration) IsHTTPS() bool {
 	return strings.Contains(Config.Scheme, "https")
 }
 
+func (c *Configuration) HostWithScheme() string {
+	if strings.HasPrefix(Config.Host, "https://") ||
+	   strings.HasPrefix(Config.Host, "http://") {
+		return Config.Host
+	}
+	return fmt.Sprintf("%s://%s", Config.Scheme, Config.Host)
+}
+
 func (c *Configuration) IsPublic() bool {
 	switch Config.Public {
 	case "1", "true", "TRUE":
